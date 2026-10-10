@@ -1,0 +1,11 @@
+# Virtual environment
+.chatbot_env/
+.venv/
+.env
+
+# Python cache files
+__pycache__/
+*.py[cod]
+
+# System files
+.DS_Store
