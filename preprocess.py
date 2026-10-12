@@ -36,3 +36,7 @@ cleaned_queries_df = queries_df[['author_id', 'cleaned_text']].copy()
 
 # Save the preprocessed dataframe to a CSV file (don't save the pandas indexes)
 cleaned_queries_df.to_csv("data/processed/cleaned_twcs.csv", index=False)
+
+# Randomly sample 5,000 rows from the cleaned_queries_df dataframe and save it into a CSV file
+sample_queries_df = cleaned_queries_df.sample(n=5000, random_state=42)
+sample_queries_df.to_csv("data/processed/cleaned_twcs_sample.csv", index=False)
