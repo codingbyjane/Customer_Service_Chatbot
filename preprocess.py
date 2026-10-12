@@ -1,7 +1,5 @@
-# Import dependencies
 import pandas as pd
 import re
-
 
 # Load the Customer Service on Twitter dataset
 queries_df = pd.read_csv("data/raw/twcs.csv", usecols=['author_id', 'inbound', 'text'], nrows=100000) # Load the first 100,000 for the CSV file and filter the necessary columns
@@ -32,3 +30,6 @@ def preprocess_text(text):
 
 queries_df['cleaned_text'] = queries_df['text'].map(preprocess_text)  # Apply the preprocessing function to the 'text' column and save the results in a new column 'cleaned_text'
 print(queries_df[['text', 'cleaned_text']].head(20))
+
+# Save the preprocessed dataframe to a CSV file (don't save the pandas indexes)
+queries_df.to_csv("data/processed/cleaned_twcs.csv", index=False)
