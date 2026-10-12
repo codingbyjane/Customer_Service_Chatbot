@@ -1,9 +1,6 @@
 # Import dependencies
 import pandas as pd
-import nltk
-from nltk.tokenize import word_tokenize
 import re
-import string
 
 
 # Load the Customer Service on Twitter dataset
@@ -12,7 +9,6 @@ queries_df = pd.read_csv("data/raw/twcs.csv", usecols=['author_id', 'inbound', '
 # Filter the dataframe to incude inbound queries only
 queries_df = queries_df[queries_df['inbound'] == True].copy() # Separate the dataframe containing inbound queries by creating an independent copy of the original dataframe
 print(f"Total number of inbound queries: {len(queries_df)}")
-print(queries_df.head())
 
 # Remove empty rows from the 'text' column and create a separate copy of the dataframe
 queries_df = queries_df.dropna(subset=['text']).copy()
@@ -24,13 +20,15 @@ queries_df['text'] = queries_df['text'].str.replace(r'\s+', ' ', regex=True).str
 queries_df = queries_df[queries_df['text'] != '']
 
 # Remove duplicate rows based on the 'text' column & reset indexes
-queries_df = queries_df.drop_duplicates(subset=['text']).reset_index(drop=True)
+queries_df = queries_df.drop_duplicates(subset=['text', 'author_id']).reset_index(drop=True) # By filtering 'text' and 'author_id' only the queryduplicates from the same authors will be removed
+print(f"Total number of unique inbound queries: {len(queries_df)}")
 
-nltk.download('punkt')
+def preprocess_text(text):
+    text = re.sub(r'http?:\S+|www\.\S+', "HTTPURL", text, flags=re.IGNORECASE)  # Replace URLs with a "HTTPURL" placeholder
+    text = re.sub(r'@\w+', "@SUPPORT", text, flags=re.IGNORECASE)  # Replace mentions with a "@SUPPORT" placeholder
+    text = re.sub(r'#', "", text)  # Remove hashtag symbols
 
-def preproces_text(text):
+    return text
 
-    if not isinstance(text, str):
-        return ""
-    
-    text = text.lower() # Convert to lowercase
+queries_df['cleaned_text'] = queries_df['text'].map(preprocess_text)  # Apply the preprocessing function to the 'text' column and save the results in a new column 'cleaned_text'
+print(queries_df[['text', 'cleaned_text']].head(20))
