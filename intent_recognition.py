@@ -27,17 +27,18 @@ def batch_intent_recognition(queries, batch_size=8):
     query_intent_results = []
 
     for query_index in range(0, len(queries), batch_size):
-        batch = queries[query_index:query_index + 8]
+        batch = queries[query_index:query_index + batch_size]
         batch_intent_results = zs_classifier(batch, candidate_labels, batch_size=batch_size, truncation=True, max_length=128)
-        query_intent_results.extend(batch_intent_results)
 
-        queries_processed = min(query_index + batch_size/len(queries))
+        queries_processed = min(query_index + batch_size, len(queries))
         print(f"Processed {queries_processed}/{len(queries)} queries")
 
-        intent = query_intent_results['labels'][0]
-        score = query_intent_results['scores'][0]
+        for result in batch_intent_results:
+            top_label, top_score = max(zip(batch_intent_results['labels'], batch_intent_results['scores']), key=lambda x:x[1])
 
-    return intent, score
+
+
+
 
 
 
@@ -48,8 +49,16 @@ if __name__ == "__main__":
     example_result = zs_classifier(example_sentence, candidate_labels)
     print(example_result)
 
-
+    # Load the cleaned dataset sample
     sample_queries_df = pd.read_csv("data/processed/cleaned_twcs_sample.csv")
 
     # Convert the 'cleaned_text' column of the dataframe into a list of strings for batch processing
     queries_list = sample_queries_df['cleaned_text'].tolist()
+
+    # Apply the batch intent recognition function to the sample list of queries
+    intent_recognition_results = batch_intent_recognition(queries_list, batch_size=8)
+
+    query_intent_df = pd.DataFrame({
+        "author_id" : sample_queries_df['author_id'].to_numpy,
+        "cleaned_text" : sample_queries_df['cleaned_text'].to_numpy
+    })
