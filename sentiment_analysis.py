@@ -7,8 +7,8 @@ sentiment_pipeline = pipeline("sentiment-analysis", model="cardiffnlp/twitter-ro
 
 # Define a reusable sentiment analysis function (used by the chatbot)
 def get_sentiment(text):
-    sentiment_result = sentiment_pipeline(text, truncation=True, max_length=128)[0]
-    return sentiment_result['label'].lower(), sentiment_result['score']
+    sentiment_result = sentiment_pipeline(text, truncation=True, max_length=128)[0] # Access the first item in the list (which is a dictionary containing the label and score keys)
+    return sentiment_result['label'].lower(), sentiment_result['score'] # Return a tuple containing the label and score values
 
 
 # Implement a batch processing function to iterate through the large amount of queries efficiently
