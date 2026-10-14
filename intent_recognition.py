@@ -5,10 +5,23 @@ from transformers import pipeline
 zs_classifier = pipeline("zero-shot-classification", model="facebook/bart-large-mnli")
 
 # Define candidate labels that each user query will be compared against
-candidate_labels = ["refund request", "delivery issue", "order cancellation", "product inquiry", "billing or payment issue", "account or login issue", "thanks or positive feedback", "contact request", "technical support request"]
+candidate_labels = ["requesting a refund or return", 
+                    "requesting an order cancellation", 
+                    "a billing or payment issue",
+                    "a delivery or shipping issue", 
+                    "service cancellation complaint",
+                    "an account or login issue", 
+                    "a product inquiry",  
+                    "giving thanks or positive feedback", 
+                    "poor customer service", 
+                    "requesting a status update",
+                    "reporting a technical or software problem",
+                    "requesting to contact a human agent",
+                    "complaining about a lack of response",
+                    ]
 
 # Define a custom hypothesis sentence template that the premise (user query) will be compared against because NLI works best on natural text
-hypothesis_template = "This customer message is about a {}."
+hypothesis_template = "This customer message is about {}."
 
 # Define a reusable intent recognition function (used by the chatbot)
 def get_intent(text):
@@ -43,11 +56,6 @@ def batch_intent_recognition(queries, candidate_labels=candidate_labels, hypothe
 
 if __name__ == "__main__":
 
-    ''' example_sentence = "I need help with my order. It hasn't arrived yet."
-
-    example_result = zs_classifier(example_sentence, candidate_labels)
-    print(example_result) '''
-
     # Load the cleaned dataset sample
     sample_queries_df = pd.read_csv("data/processed/cleaned_twcs_sample.csv")
 
@@ -57,18 +65,10 @@ if __name__ == "__main__":
     '''
     # Apply the batch intent recognition function to the sample list of queries
     intent_recognition_results = batch_intent_recognition(queries_list, candidate_labels)
-
-    query_intent_df = pd.DataFrame({
-        "author_id" : sample_queries_df['author_id'].to_numpy(),
-        "cleaned_text" : sample_queries_df['cleaned_text'].to_numpy(),
-        "intent" : [result[0] for result in intent_recognition_results],
-        "confidence score" : [result[1] for result in intent_recognition_results]
-        })
-
-    print(query_intent_df.head(10)) '''
+    '''
 
     small_sample_df = sample_queries_df.head(100).copy()
-    print(small_sample_df.head(10))
+    #print(small_sample_df.head(10))
 
     small_sample_list = small_sample_df['cleaned_text'].tolist()
 
@@ -81,4 +81,4 @@ if __name__ == "__main__":
         "score" : [result[1] for result in test_results]
     })
 
-    print(test_results_df.head(20))
+    print(test_results_df.head(30))
