@@ -80,4 +80,4 @@ if __name__ == "__main__":
         "score" : [result[1] for result in test_results]
     })
 
-    print(test_results_df.head(50))
+    print(test_results_df.head(30))
