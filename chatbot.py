@@ -30,3 +30,16 @@ escalation_message = "Please wait, I am connecting you with a human agent."
 class CustomerServiceChatbot:
     def __init__(self, ):
         ...
+
+    def analyse_query(self, text):
+        sentiment_label, sentiment_score = get_sentiment(text) # get_sentiment function returns a label-score tuple which is going to be stored in sentiment_label, sentiment_score variables accordingly
+        intent_label, intent_score = get_intent(text) # get_intent function returns label-score tuple for intent recognition results
+
+        # Return a dictionary containing the input query along with sentiment analysis and intent recognition results
+        return {
+            "text" : text,
+            "sentiment" : sentiment_label,
+            "sentiment score" : sentiment_score,
+            "intent" : intent_label,
+            "intent_score" : intent_score
+        }
