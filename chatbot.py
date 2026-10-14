@@ -83,3 +83,6 @@ class CustomerServiceChatbot:
                 reply = empathy_sentence + reply
 
         self.results_log.append({"decided_action" : decided_action, "reason" : reason}) # append the query analysis results to the results log
+
+    def run(self):
+        print("Bot: Hello! How can I help you today?")
