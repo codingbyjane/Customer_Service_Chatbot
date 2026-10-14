@@ -19,3 +19,14 @@ responses_dict = {
     "reporting a technical or software problem" : "",
     "requesting to contact a human agent" : ""
 }
+
+empathy_sentence = "I'm sorry about the inconvenience."
+clarify_message = "I'm not sure I understood. Could you please rephrase or add more detail?"
+human_agent_intent = "requesting to contact a human agent"
+escalation_message = "Please wait, I am connecting you with a human agent."
+
+
+
+class CustomerServiceChatbot:
+    def __init__(self, ):
+        ...
