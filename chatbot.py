@@ -31,6 +31,8 @@ class CustomerServiceChatbot:
         self.intent_confidence_threshold = intent_confidence_threshold
         self.negative_sentiment_threshold = negative_sentiment_threshold
         self.max_failed_rounds = max_failed_rounds
+        self.failed_rounds = 0
+        self.results_log = [] # a list of dictionaries containing infomation about processing each user input query
 
     def analyse_query(self, text):
         sentiment_label, sentiment_score = get_sentiment(text) # get_sentiment function returns a label-score tuple which is going to be stored in sentiment_label, sentiment_score variables accordingly
@@ -39,7 +41,7 @@ class CustomerServiceChatbot:
         query_analysis = {
             "text" : text,
             "sentiment" : sentiment_label,
-            "sentiment score" : sentiment_score,
+            "sentiment_score" : sentiment_score,
             "intent" : intent_label,
             "intent_score" : intent_score
         }
@@ -49,5 +51,35 @@ class CustomerServiceChatbot:
 
     def decide_response(self, query_analysis):
 
-        if query_analysis['intent'] == human_agent_intent and query_analysis['intent_score'] >= self.intent_confidence_threshold:
-            return "escalate"
+        if query_analysis["intent"] == human_agent_intent and query_analysis["intent_score"] >= self.intent_confidence_threshold:
+            return "escalate", "request to connect with a human agent" # connecting with a human agent if a user asks
+
+        if query_analysis["sentiment"] == "negative" and query_analysis["sentiment_score"] >= self.negative_sentiment_threshold:
+            return "escalate", "strongly negative sentiment" # connecting with a human agent if the sentiment of the query is strongly negative
+
+        if query_analysis["intent_score"] <= self.intent_confidence_threshold:
+            if self.failed_rounds + 1 >= self.max_failed_rounds:
+                return "escalate", "repeated low-confidence intents" # connecting with a human agent after 2 consecutive low-confidence intents
+            return "clarify", "low-confidence intent" # asking to clarify a low-confidence intent
+        
+        return "answer", "high-confidence intent"
+
+    def respond(self, text):
+        query_analysis = self.analyse_query(text)
+        decided_action, reason = self.decide_response(query_analysis)
+
+        self.failed_rounds = self.failed_rounds + 1 if decided_action == "clarify" else 0
+
+        if decided_action == "escalate":
+            reply = escalation_message
+
+        elif decided_action == "clarify":
+            reply = clarify_message
+
+        else: 
+            reply = responses_dict[query_analysis["intent"]] # accessing the mapped response from the predefined dictionary
+
+            if query_analysis["sentiment"] == "negative":
+                reply = empathy_sentence + reply
+
+        self.results_log.append({"decided_action" : decided_action, "reason" : reason}) # append the query analysis results to the results log
