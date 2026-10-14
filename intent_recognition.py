@@ -16,8 +16,7 @@ candidate_labels = ["requesting a refund or return",
                     "poor customer service", 
                     "requesting a status update",
                     "reporting a technical or software problem",
-                    "requesting to contact a human agent",
-                    "complaining about a lack of response",
+                    "requesting to contact a human agent"
                     ]
 
 # Define a custom hypothesis sentence template that the premise (user query) will be compared against because NLI works best on natural text
@@ -30,7 +29,7 @@ def get_intent(text):
     # Create a dictionary with label-score pairs using a dictionary comprehension
     intent_scores = {label:score for label,score in zip(intent_result['labels'], intent_result['scores'])}
 
-    top_label = max(intent_scores, key=intent_scores.get) # Retrieve the label (key) corresponding to the highest score (value)
+    top_label = max(intent_scores, key=intent_scores.get) # Retrieve the label (key) corresponding to the highest score (value). Running the max() function on a dictionary returns the key (label) with the highest value.
     top_score = intent_scores[top_label]
 
     return top_label, top_score
@@ -45,7 +44,7 @@ def batch_intent_recognition(queries, candidate_labels=candidate_labels, hypothe
         batch_intent_results = zs_classifier(batch, candidate_labels, hypothesis_template=hypothesis_template, batch_size=batch_size)
 
         for result in batch_intent_results: # Loop through resulting dictionaries (pipeline outputs a dictionary with 'sequence', 'labels', 'scores' for every query)
-            top_label, top_score = max(zip(result['labels'], result['scores']), key=lambda x:x[1]) # Retrieve the highest score and its corresponding label for each query
+            top_label, top_score = max(zip(result['labels'], result['scores']), key=lambda x:x[1]) # Retrieve the highest score and its corresponding label for each query.
             query_intent_results.append((top_label, top_score)) # Append label-score tuples for every query to the results list
 
         queries_processed = min(query_index + batch_size, len(queries))
@@ -64,11 +63,11 @@ if __name__ == "__main__":
 
     '''
     # Apply the batch intent recognition function to the sample list of queries
-    intent_recognition_results = batch_intent_recognition(queries_list, candidate_labels)
+    intent_recognition_results = batch_intent_recognition(queries_list)
     '''
 
     small_sample_df = sample_queries_df.head(100).copy()
-    #print(small_sample_df.head(10))
+    print(small_sample_df.head(10))
 
     small_sample_list = small_sample_df['cleaned_text'].tolist()
 
@@ -81,4 +80,4 @@ if __name__ == "__main__":
         "score" : [result[1] for result in test_results]
     })
 
-    print(test_results_df.head(30))
+    print(test_results_df.head(50))
