@@ -98,3 +98,6 @@ class CustomerServiceChatbot:
                 continue
             
             print(f"Bot: {self.respond(user_input_text)}")
+
+if __name__ == "__main__":
+    chatbot = CustomerServiceChatbot()
