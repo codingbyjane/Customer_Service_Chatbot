@@ -9,14 +9,14 @@ candidate_labels = ["requesting a refund or return",
                     "requesting an order cancellation", 
                     "a billing or payment issue",
                     "a delivery or shipping issue", 
-                    "service cancellation complaint",
+                    "a service delay, cancellation, or disruption",
                     "an account or login issue", 
-                    "a product inquiry",  
-                    "giving thanks or positive feedback", 
-                    "poor customer service", 
-                    "requesting a status update",
                     "reporting a technical or software problem",
-                    "requesting to contact a human agent"
+                    "a product inquiry",  
+                    "complaining about staff or customer service quality", 
+                    "asking for a status update on an earlier request",
+                    "giving thanks or positive feedback", 
+                    "requesting to speak to a human agent"
                     ]
 
 # Define a custom hypothesis sentence template that the premise (user query) will be compared against because NLI works best on natural text
@@ -58,13 +58,6 @@ if __name__ == "__main__":
     # Load the cleaned dataset sample
     sample_queries_df = pd.read_csv("data/processed/cleaned_twcs_sample.csv")
 
-    # Convert the 'cleaned_text' column of the dataframe into a list of strings for batch processing
-    queries_list = sample_queries_df['cleaned_text'].tolist()
-
-    '''
-    # Apply the batch intent recognition function to the sample list of queries
-    intent_recognition_results = batch_intent_recognition(queries_list)
-    '''
 
     small_sample_df = sample_queries_df.head(100).copy()
     print(small_sample_df.head(10))
@@ -74,10 +67,19 @@ if __name__ == "__main__":
     test_results = batch_intent_recognition(small_sample_list)
 
     test_results_df = pd.DataFrame({
-        "author_id" : small_sample_df["author_id"].to_numpy(),
+        "author_id" : small_sample_df["author_id"].to_numpy(), # Converting pandas series to numpy array to align indexes
         "cleaned_text" : small_sample_df["cleaned_text"].to_numpy(),
         "label" : [result[0] for result in test_results],
         "score" : [result[1] for result in test_results]
     })
 
-    print(test_results_df.head(30))
+    print(test_results_df.head(60))
+
+    
+    # Convert the 'cleaned_text' column of the dataframe into a list of strings for batch processing
+    queries_list = sample_queries_df['cleaned_text'].tolist()
+
+    '''
+    # Apply the batch intent recognition function to the sample list of queries
+    intent_recognition_results = batch_intent_recognition(queries_list)
+    '''
