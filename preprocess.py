@@ -6,7 +6,7 @@ queries_df = pd.read_csv("data/raw/twcs.csv", usecols=['author_id', 'inbound', '
 
 # Filter the dataframe to incude inbound queries and opening messages only
 queries_df = queries_df[(queries_df['inbound'] == True) & (queries_df['in_response_to_tweet_id'].isna())].copy() # Separate the dataframe containing inbound queries and queries that aren't replies to previous tweets (such tweets have ambiguous meaning and lack context) by creating an independent copy of the original dataframe
-print(f"Total number of inbound opening queries: {len(queries_df)}")
+print(f"Total number of inbound non-reply queries: {len(queries_df)}")
 
 # Remove empty rows from the 'text' column and create a separate copy of the dataframe
 queries_df = queries_df.dropna(subset=['text']).copy()
@@ -28,7 +28,7 @@ def preprocess_text(text):
 
     return text
 
-queries_df['cleaned_text'] = queries_df['text'].map(preprocess_text) # Apply the preprocessing function to the 'text' column and save the results in a new column 'cleaned_text'
+queries_df['cleaned_text'] = queries_df['text'].map(preprocess_text) # Map the preprocessing function to the 'text' column and save the results in a new column 'cleaned_text'
 print(queries_df[['text', 'cleaned_text']].head(20))
 
 # Create a new dataframe with only the necessary columns for further processing
@@ -39,5 +39,4 @@ cleaned_queries_df.to_csv("data/processed/cleaned_twcs.csv", index=False)
 
 # Randomly sample 3,000 rows from the cleaned_queries_df dataframe and save it into a CSV file
 sample_queries_df = cleaned_queries_df.sample(n=3000, random_state=42)
-
 sample_queries_df.to_csv("data/processed/cleaned_twcs_sample.csv", index=False)
