@@ -92,7 +92,7 @@ class CustomerServiceChatbot:
             if query_analysis["sentiment"] == "negative":
                 reply = empathy_sentence + " " + reply
 
-        self.results_log.append({"decided_action" : decided_action, "reason" : reason}) # append the query analysis results to the results log
+        self.results_log.append({**query_analysis, "decided_action" : decided_action, "reason" : reason}) # append the query analysis results to the results log (**query_analysis unpacks the dictionary created in analyse_query method)
 
         return reply
 
