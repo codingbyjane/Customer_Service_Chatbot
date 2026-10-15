@@ -119,3 +119,4 @@ if __name__ == "__main__":
 
     # Save the chatbot decision and response log into a pandas dataframe
     chatbot_results_log_df = pd.DataFrame(chatbot.results_log)
+    print(chatbot_results_log_df)
