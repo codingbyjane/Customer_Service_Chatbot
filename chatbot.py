@@ -86,3 +86,15 @@ class CustomerServiceChatbot:
 
     def run(self):
         print("Bot: Hello! How can I help you today?")
+
+        while True: # Run the chatbot until an explicit exit command is executed
+            user_input_text = input("You: ").strip() # Stripping the input sentence of unneccessary whitespaces
+
+            if user_input_text.lower() in {"quit", "exit"}:
+                print("Bot: Goodbye!")
+                break
+
+            if not user_input_text:
+                continue
+            
+            print(f"Bot: {self.respond(user_input_text)}")
