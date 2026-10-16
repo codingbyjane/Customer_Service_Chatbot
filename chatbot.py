@@ -20,11 +20,12 @@ responses_dict = {
     "a billing or payment issue" : "Could you provide the transaction reference and the amount charged? Please don't send the full card number.",
     "a delivery or shipping issue" : "Could you please provide your order or tracking number so I can check the shipping status?",
     "a service delay, cancellation, or disruption" : "Thank you for your feedback, it helps us improve our services in the future. Would you like me to connect you to our team member?",
-    "an account or login issue" : "Please provide the username or email linked to your account.",
+    "an account or login issue" : "Please provide the username or email adress linked to your account.",
     "reporting a technical or software problem" : "Which device and app version are you using?",
     "a product inquiry" : "I'm happy to help with any of your questions. What would you like me to clarify?",
     "complaining about staff or customer service quality" : "Thank you for letting us know. I've noted your feedback for our team to review.",
-    "asking for a status update on an earlier request" : "Thank you for your patience. Please share your ticket number so I can check the case status.",
+    "asking for a status update on an earlier request or asking about wait time" : "Thank you for your patience. Please share your ticket number so I can check the case status.",
+    "requesting a change to an existing order" : "I can help with that. Please share your order number and tell me what you'd like to change.",
     thanks_intent : thanks_message,
     human_agent_intent : escalation_message
 }
