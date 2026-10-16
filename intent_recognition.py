@@ -14,9 +14,10 @@ candidate_labels = ["requesting a refund or return",
                     "reporting a technical or software problem",
                     "a product inquiry",  
                     "complaining about staff or customer service quality", 
-                    "asking for a status update on an earlier request",
+                    "asking for a status update on an earlier request or asking about wait time",
                     "giving thanks or positive feedback", 
-                    "requesting to speak to a human agent"
+                    "requesting to speak to a human agent",
+                    "requesting a change to an existing order"
                     ]
 
 # Define a custom hypothesis sentence template that the premise (user query) will be compared against because NLI works best on natural text
@@ -73,13 +74,24 @@ if __name__ == "__main__":
         "score" : [result[1] for result in test_results]
     })
 
-    print(test_results_df.head(60))
+    print(test_results_df.head(20))
 
     
     # Convert the 'cleaned_text' column of the dataframe into a list of strings for batch processing
     queries_list = sample_queries_df['cleaned_text'].tolist()
 
-    '''
     # Apply the batch intent recognition function to the sample list of queries
     intent_recognition_results = batch_intent_recognition(queries_list)
-    '''
+
+    intent_recognition_results_df = pd.DataFrame({
+        "author_id" : sample_queries_df["author_id"].to_numpy(),
+        "cleaned_text" : sample_queries_df["cleaned_text"].to_numpy(),
+        "label" : [result[0] for result in intent_recognition_results],
+        "score" : [result[1] for result in intent_recognition_results]
+    })
+
+    # Show the distribution of intent labels on the full dataset sample
+    print(f"\nIntent label distribution:\n{intent_recognition_results_df['label'].value_counts()}\n")
+
+    # Save the intent recognition results for the whole 3000-row sample into a CSV file for reusability
+    intent_recognition_results_df.to_csv("data/processed/twcs_sample_intent_results.csv", index=False)
