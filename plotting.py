@@ -45,10 +45,10 @@ def plot_sentiment_distribution(dataframe):
 
 # Define a function to plot the distribution of intent labels
 def plot_intent_distribution(dataframe, intent_column="label"):
-    intent_counts = dataframe[intent_column].value_counts().sort_values()
-    wrap_labels = [textwrap.fill(label, 30) for label in intent_counts.index]
+    intent_counts = dataframe[intent_column].value_counts().sort_values() # Count unique intent label instances and sort them in ascending order
+    wrap_labels = [textwrap.fill(label, 40) for label in intent_counts.index] # Wrap the labels so that every line is maximally 40 characters long
 
-    fig, ax = plt.subplots(figsize=(12, 6))
+    fig, ax = plt.subplots(figsize=(15, 7))
     bars = ax.barh(wrap_labels, 
                   intent_counts.values, 
                   color=intent_colour)
