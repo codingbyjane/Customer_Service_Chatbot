@@ -20,3 +20,32 @@ pip install -r requirements.txt
 
 ## Dataset
 Dataset: *Customer Support on Twitter* from Kaggle ([https://www.kaggle.com/datasets/thoughtvector/customer-support-on-twitter/data]).
+This dataset is not included directly in this repository because of its size. Place the [twcs.csv] file at:
+```
+data/raw/twcs.csv
+```
+
+## Running the project
+Run from the project root, in this order:
+
+```bash
+python preprocess.py           # clean data and create the sample
+python sentiment_analysis.py   # sentiment analysis on the sample -> data/processed/
+python intent_recognition.py   # intent on the sample (slower processing) -> data/processed/
+python plots.py                # figures and plots -> figures/
+python chatbot.py              # interactive chat in the terminal (type "quit" of "exit" to exit)
+```
+
+## Project structure
+
+```
+data/raw/            original dataset (not tracked)
+data/processed/      cleaned data and model results
+figures/             generated charts
+preprocess.py
+sentiment_analysis.py
+intent_recognition.py
+chatbot.py
+plots.py
+requirements.txt
+```
