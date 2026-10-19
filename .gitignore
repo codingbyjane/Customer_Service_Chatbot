@@ -7,8 +7,11 @@
 __pycache__/
 *.py[cod]
 
-# System files
+# System/editor files
 .DS_Store
+.vscode/
 
 # Raw data files
 data/
+data/raw
+figures/
