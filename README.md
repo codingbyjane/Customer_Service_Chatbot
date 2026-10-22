@@ -50,5 +50,17 @@ plots.py
 requirements.txt
 ```
 
+## Example conversation turns
+- refund: "Hello, I would like to return a jacket I bought last week and get a refund."
+- order cancellation: "Please cancel my order, I picked the wrong size."
+- billing: "I think I was charged twice for the same payment on my card."
+- delivery: "My parcel has not arrived yet and the tracking has not updated."
+- service disruption: "Is there a problem with the internet in my area today? It has been down since this morning."
+- account/login: "I can't log in to my account, it says my password is wrong."
+- product inquiry: "Does the blue version of this phone come with a charger?"
+- staff/service complaint: "The staff at the store were not very helpful today."
+- status update: "Could you give me an update on the support ticket I opened on Monday?"
+- technical problem: "The app keeps freezing when I open the settings page."
+
 ## Acknowledgements
 Models by Cardiff NLP and Facebook AI, via Hugging Face Transformers. Dataset by Thought Vector (https://www.kaggle.com/organizations/thoughtvector). Please check the dataset's license on Kaggle before reusing the data.
