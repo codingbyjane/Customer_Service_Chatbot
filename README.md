@@ -62,5 +62,10 @@ requirements.txt
 - status update: "Could you give me an update on the support ticket I opened on Monday?"
 - technical problem: "The app keeps freezing when I open the settings page."
 
+### Escalation rules testing
+- human request: "I would like to speak to a human agent please."
+- strongly negative: "I am absolutely furious, this is the worst service I have ever experienced and you are useless!"
+- sarcasm: "Oh great, thanks a lot for cancelling my flight again, really appreciate it."
+
 ## Acknowledgements
 Models by Cardiff NLP and Facebook AI, via Hugging Face Transformers. Dataset by Thought Vector (https://www.kaggle.com/organizations/thoughtvector). Please check the dataset's license on Kaggle before reusing the data.
