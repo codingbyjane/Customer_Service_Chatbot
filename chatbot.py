@@ -35,7 +35,7 @@ assert set(responses_dict) == set(candidate_labels)
 assert human_agent_intent in candidate_labels and thanks_intent in candidate_labels
 
 class CustomerServiceChatbot:
-    def __init__(self, intent_confidence_threshold = 0.3, negative_sentiment_threshold=0.85, max_failed_rounds=2):
+    def __init__(self, intent_confidence_threshold = 0.3, negative_sentiment_threshold=0.95, max_failed_rounds=2):
         self.intent_confidence_threshold = intent_confidence_threshold
         self.negative_sentiment_threshold = negative_sentiment_threshold
         self.max_failed_rounds = max_failed_rounds
