@@ -1,8 +1,10 @@
+# Importing dependencies
 import os
 import pandas as pd
 import matplotlib.pyplot as plt
 import textwrap
 
+# Create the figures folder
 os.makedirs("figures", exist_ok=True)
 
 # Load the data
