@@ -52,21 +52,21 @@ requirements.txt
 
 ## Example conversation turns
 - refund: "Hello, I would like to return a jacket I bought last week and get a refund."
-- order cancellation: "Please cancel my order, I picked the wrong size."
+- order cancellation: "I'd like to cancel my order please."
 - billing: "I think I was charged twice for the same payment on my card."
 - delivery: "My parcel has not arrived yet and the tracking has not updated."
 - service disruption: "Is there a problem with the internet in my area today? It has been down since this morning."
 - account/login: "I can't log in to my account, it says my password is wrong."
 - product inquiry: "Does the blue version of this phone come with a charger?"
 - staff/service complaint: "The staff at the store were not very helpful today."
-- status update: "Could you give me an update on the support ticket I opened on Monday?"
+- status update: "I'd like to ask why customer support team still haven't answered my email."
 - technical problem: "The app keeps freezing when I open the settings page."
 
 ### Escalation rules testing
 - human request: "I would like to speak to a human agent please."
 - strongly negative: "I am absolutely furious, this is the worst service I have ever experienced and you are useless!"
 - mildly negative: "My delivery is two days late, which is a bit disappointing."
-- sarcasm: "Oh great, thanks a lot for cancelling my flight again, really appreciate it."
+- sarcasm: "Oh great, thanks for cancelling my flight again, this is unacceptable."
 - low confidence: "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
 
 ## Acknowledgements
