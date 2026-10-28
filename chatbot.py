@@ -1,7 +1,7 @@
 # Importing libraries
 import pandas as pd
 
-# Importing sentiment analysis and intent recognition funcitons
+# Importing sentiment analysis and intent recognition functions
 from sentiment_analysis import get_sentiment
 from intent_recognition import get_intent, candidate_labels
 
