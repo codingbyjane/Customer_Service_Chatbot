@@ -59,7 +59,7 @@ requirements.txt
 - account/login: "I can't log in to my account, it says my password is wrong."
 - product inquiry: "Does the blue version of this phone come with a charger?"
 - staff/service complaint: "The staff at the store were not very helpful today."
-- status update: "I'd like to ask why customer support team still haven't answered my email."
+- status update: "I'd like to ask how long do I have to wait for a reply?"
 - technical problem: "The app keeps freezing when I open the settings page."
 
 ### Escalation rules testing
